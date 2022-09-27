@@ -15,7 +15,7 @@ namespace BPM.DAL.Entities
         [MaxLength(150)]
         public string Email { get; set; }
 
-        public string? Password { get; set; }
+        public string Password { get; set; }
 
         [Required]
         public Enums.Rore RoleId { get; set; }

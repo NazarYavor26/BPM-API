@@ -31,9 +31,11 @@ namespace BPM.DAL.Entities
         public virtual Level Level { get; set; }
 
         public int? LastUpdatedById { get; set; }
+
         public virtual User LastUpdatedBy { get; set; }
 
         public int? CompetenceLeadId { get; set; }
+
         public virtual User CompetenceLead { get; set; }
     }
 }

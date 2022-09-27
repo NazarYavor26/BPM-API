@@ -4,7 +4,7 @@
 
 namespace BPM.DAL.Migrations
 {
-    public partial class init : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -51,7 +51,7 @@ namespace BPM.DAL.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Email = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     RoleId = table.Column<int>(type: "int", nullable: false),
                     StatusId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -81,7 +81,9 @@ namespace BPM.DAL.Migrations
                     FirstName = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: false),
-                    LevelId = table.Column<int>(type: "int", nullable: false)
+                    LevelId = table.Column<int>(type: "int", nullable: false),
+                    LastUpdatedById = table.Column<int>(type: "int", nullable: true),
+                    CompetenceLeadId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -93,12 +95,32 @@ namespace BPM.DAL.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
+                        name: "FK_UserProfiles_Users_CompetenceLeadId",
+                        column: x => x.CompetenceLeadId,
+                        principalTable: "Users",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_UserProfiles_Users_LastUpdatedById",
+                        column: x => x.LastUpdatedById,
+                        principalTable: "Users",
+                        principalColumn: "Id");
+                    table.ForeignKey(
                         name: "FK_UserProfiles_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserProfiles_CompetenceLeadId",
+                table: "UserProfiles",
+                column: "CompetenceLeadId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserProfiles_LastUpdatedById",
+                table: "UserProfiles",
+                column: "LastUpdatedById");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserProfiles_LevelId",
