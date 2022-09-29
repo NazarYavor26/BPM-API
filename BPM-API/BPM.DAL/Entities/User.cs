@@ -28,5 +28,7 @@ namespace BPM.DAL.Entities
         public virtual Status Status { get; set; }
 
         public UserProfile Profile { get; set; }
+
+        public virtual ICollection<RefreshToken> RefreshTokens { get; set; }
     }
 }
